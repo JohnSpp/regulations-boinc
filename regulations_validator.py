@@ -7,7 +7,7 @@ This shows where the standard validation happens within the program.
 """
 
 
-def lengthChecker(fileName):
+def file_length_checker(fileName):
     
     result = open(fileName, "r")
     counter = 0
@@ -26,16 +26,25 @@ if sys.argv[1]!='--error':
 
     file_list = os.listdir(os.path.dirname(os.path.abspath(__file__))) 
 
+    counter = 0
+
     for file in file_list:
 
         if file.startswith("results"):
-            if lengthChecker(file):
-                sys.exit(0)
+            if file_length_checker(file):
+                counter += 1
             else:
-                sys.exit(1)
+                pass
 
         elif file.startswith("doc.") and (file.endswith(".json") or file.endswith(".html") or file.endswith(".pdf") or file.endswith(".tiff")):
-            sys.exit(0)
+            counter += 1
 
         else:
-            sys.exit(1)  
+            pass
+
+    if counter == len(file_list):
+        sys.exit(0)
+
+    else:
+        sys.exit(1) 
+        
