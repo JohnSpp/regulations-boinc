@@ -2,6 +2,7 @@
 total_size = 0
 document_ids = []
 filename = ""
+counts = []
 
 
 def work_file(file_path):
@@ -11,10 +12,11 @@ def work_file(file_path):
     :param file_path: this is the path where the file is that will be written to
     :return:
     """
-    global filename, document_ids, total_size
+    global filename, document_ids, total_size, counts
     filename = file_path
     document_ids = []
     total_size = 0
+    counts = []
 
 
 def write():
@@ -23,8 +25,8 @@ def write():
     :return:
     """
     with open(filename, 'w+') as f:
-        for doc_id in document_ids:
-            f.write(doc_id + "\n")
+        for i, doc_id in enumerate(document_ids):
+            f.write(doc_id + "," + counts[i] + "\n")
 
 
 def add_doc(document_id, count):
@@ -35,9 +37,10 @@ def add_doc(document_id, count):
     :param count: this is an integer for the number of calls to collect all information about the given document
     :return:
     """
-    global total_size
+    global total_size, counts
     total_size += count
     document_ids.append(document_id)
+    counts.append(str(count))
 
 
 def size():

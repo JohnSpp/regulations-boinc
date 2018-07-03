@@ -2,3 +2,7 @@ pytest
 requests
 requests_mock
 mock
+fakeredis
+flask
+redis
+appJar

@@ -1,7 +1,9 @@
 import requests
 import os
 
-key = os.environ['API_TOKEN_REGULATIONS_GOV']
+home = os.getenv("HOME")
+with open(home + '/.env/regulationskey.txt') as f:
+    key = f.readline()
 
 
 def call(url):
@@ -15,7 +17,7 @@ def call(url):
     :param url: the url that will be used to make the api call
     :return: returns the json format information of the documents
     """
-    result = requests.get(add_api_key(url))
+    result = requests.get(url)
     if 300 <= result.status_code < 400:
         raise TemporaryException
     if result.status_code == 429:
@@ -27,7 +29,7 @@ def call(url):
 
 # The api key will not be given in the url so it must be added
 def add_api_key(url):
-    return url + "api_key=" + str(key)
+    return url + "&api_key=" + str(key)
 
 
 # Raise an exception if there is an error communicating

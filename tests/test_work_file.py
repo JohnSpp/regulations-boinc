@@ -18,11 +18,13 @@ def create_work_file(num, workfile_tempdir):
 
 
 def test_new_work_file_size():
+    create_work_file(0, "")
     wf.work_file("")
     assert wf.size() == 0
 
 
 def test_add_doc_changes_size():
+    create_work_file(0, "")
     wf.work_file("")
     wf.add_doc("ID", 1)
     assert wf.size() == 1
@@ -41,7 +43,7 @@ def test_write_check_content(workfile_tempdir):
     wf.add_doc("ID", 3)
     wf.write()
     with open(test_txt, 'r') as f:
-        assert f.readline().strip() == "ID"
+        assert f.readline().strip() == "ID,1"
 
 
 def test_write_many_ids(workfile_tempdir):
@@ -51,4 +53,4 @@ def test_write_many_ids(workfile_tempdir):
         wf.add_doc("ID", 1)
     wf.write()
     with open(test_txt, 'r') as f:
-        assert f.readline().strip() == "ID"
+        assert f.readline().strip() == "ID,1"
